@@ -1,0 +1,11 @@
+{
+  "name": "factori",
+  "version": "1.0.0",
+  "description": "Location and people intelligence from Factori. Search global POI and places data, run B2B and B2C people lookups, and pull foot-traffic, mobility, trade-area, and store-performance analytics. Unlocking records consumes Factori credits and sends data to factori.ai. Requires a Factori account.",
+  "author": {
+    "name": "Factori",
+    "url": "https://factori.ai"
+  },
+  "homepage": "https://factori.ai",
+  "license": "Proprietary"
+}
