@@ -1,6 +1,10 @@
 {
   "name": "Factori",
   "description": "Location and people intelligence from Factori — foot traffic analytics, site selection, trade area analysis, competitive benchmarking, and audience profiling.",
+  "owner": {
+    "name": "Factori",
+    "url": "https://factori.ai"
+  },
   "plugins": [
     {
       "name": "factori",
