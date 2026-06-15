@@ -10,8 +10,9 @@ Assess how much a new location would steal visits from your own existing stores,
 `/factori:cannibalization-analysis <proposed_address> <existing_addresses> [competitor_addresses]`
 
 ## Examples
-- `/factori:cannibalization-analysis "500 Peachtree St, Atlanta" "100 Main St, Atlanta, 200 Broad St, Atlanta"`
-- `/factori:cannibalization-analysis "Broadway & 42nd, NYC" "5th Ave Store, NYC" "Competitor Store, NYC"`
+- `/factori:cannibalization-analysis "I want to open a new cafe in Santa Monica but I already have shops in Venice and Culver City, so tell me how much of the new store's traffic would just be cannibalized from those two."`
+- `/factori:cannibalization-analysis "New store in Williamsburg near my Bushwick and Greenpoint locations — overlap?"`
+- `/factori:cannibalization-analysis "Opening in River North Chicago; I have Wicker Park and West Loop"`
 
 ## Instructions
 

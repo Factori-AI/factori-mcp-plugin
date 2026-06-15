@@ -2,16 +2,17 @@
 description: "Model customer redistribution when a store closes — which remaining stores absorb traffic and what percentage is lost to competitors."
 ---
 
-# Closure Impact Analysis
+# Close Impact
 
 Model what happens to customers when a store closes — how many are absorbed by remaining stores vs lost to competitors.
 
 ## Usage
-`/factori:closure-impact-analysis <closing_address> <remaining_addresses>`
+`/factori:close-impact <closing_address> <remaining_addresses>`
 
 ## Examples
-- `/factori:closure-impact-analysis "100 Main St, Atlanta" "200 Broad St, Atlanta, 300 Peachtree St, Atlanta"`
-- `/factori:closure-impact-analysis "5th Ave Store, NYC" "Broadway Store, NYC"`
+- `/factori:close-impact "I'm considering shutting down my Midtown Atlanta location and want to know whether those customers would shift to my Buckhead and Decatur stores or just get lost to competitors."`
+- `/factori:close-impact "Closing Fremont Seattle — impact on Ballard and Capitol Hill?"`
+- `/factori:close-impact "Shut our Plano store; redistribute to Frisco and Allen, TX?"`
 
 ## Instructions
 

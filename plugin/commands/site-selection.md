@@ -2,17 +2,17 @@
 description: "Complete site selection analysis — Location Score 1–10 with traffic, demographics, trade area, and market opportunity."
 ---
 
-# Site Selection Report
+# Site Selection
 
 Score a location for opening a business — combines area landscape, traffic trends, demographics, visitor audience, trade area, and market opportunity into a 1–10 Location Score.
 
 ## Usage
-`/factori:site-selection-report <location> [business_type] [radius_km]`
+`/factori:site-selection <location> [business_type] [radius_km]`
 
 ## Examples
-- `/factori:site-selection-report "123 Main St, Atlanta"`
-- `/factori:site-selection-report "Times Square, NYC" "restaurant" 0.5`
-- `/factori:site-selection-report "MG Road, Bangalore" "retail store" 1.0`
+- `/factori:site-selection "I want to open a coffee shop in Fulton Market, Chicago and need a site-selection score telling me whether it's a strong spot or already too saturated."`
+- `/factori:site-selection "Site selection for a gym in Tempe near ASU"`
+- `/factori:site-selection "Evaluate a restaurant site in the Mission District, SF"`
 
 ## Instructions
 
@@ -24,6 +24,7 @@ Call each tool IN ORDER for the given location:
 4. **Visitor Profile** — `get_visitor_profile` — WHO actually visits (often differs from residents).
 5. **Trade Area** — `get_trade_area` — radius_km=0.3 — origin hex distribution and catchment quality.
 6. **Market Quality** — `get_market_quality` — opportunity level (High/Medium/Low) and saturation.
+7. **Area Pulse** — `get_area_pulse` — time-of-day intensity, late-night %, weekday vs weekend pattern.
 
 Synthesize into a Site Selection Report:
 - **Location Score (1–10)** with justification

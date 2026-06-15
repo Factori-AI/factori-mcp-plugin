@@ -10,9 +10,9 @@ Evaluate a billboard or OOH placement — daily reach, peak exposure hours, audi
 `/factori:ooh-planner <billboard_location> [target_description] [radius_km]`
 
 ## Examples
-- `/factori:ooh-planner "I-85 & Piedmont Rd, Atlanta"`
-- `/factori:ooh-planner "Times Square, NYC" "millennials 25-34" 0.3`
-- `/factori:ooh-planner "MG Road, Bangalore" "premium car buyers" 0.2`
+- `/factori:ooh-planner "I'm planning a billboard buy along the 101 through Hollywood and want to know who's passing through, the volume, and whether it's a strong corridor to justify the spend."`
+- `/factori:ooh-planner "OOH placement at Times Square, NYC for millennials"`
+- `/factori:ooh-planner "Is I-285 at Spaghetti Junction, Atlanta a strong billboard buy?"`
 
 ## Instructions
 
@@ -20,6 +20,7 @@ Evaluate a billboard or OOH placement — daily reach, peak exposure hours, audi
 2. Call `get_visit_trends` — daily, LAST_30_DAYS — weekday vs weekend pattern.
 3. Call `get_visitor_profile` — actual audience passing the billboard (use this, not residential demographics).
 4. Call `get_trade_area` — where audience comes from (commuter corridor or local destination?).
+5. Call `get_area_snapshot` — commercial context, POI mix, and area profile.
 
 Synthesize into an OOH Planning Report:
 - **Estimated Daily Impressions**, **Peak Exposure Hours**

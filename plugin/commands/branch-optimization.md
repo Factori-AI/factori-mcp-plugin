@@ -12,8 +12,9 @@ Audit your branch or facility network — rank performance, identify consolidati
 Pass branch_addresses as a comma-separated list of 2–10 addresses.
 
 ## Examples
-- `/factori:branch-optimization "100 Peachtree St Atlanta, 200 Broad St Atlanta, 300 Main St Atlanta"`
-- `/factori:branch-optimization "Branch A NYC, Branch B NYC, Branch C NYC"`
+- `/factori:branch-optimization "I run three gyms in downtown Houston, The Woodlands, and Sugar Land and want to know which one is underperforming and whether any of them overlap so I can decide what to consolidate."`
+- `/factori:branch-optimization "Optimize my coffee shops across Brooklyn, Queens, the Bronx"`
+- `/factori:branch-optimization "Rank my branches in Portland: Pearl District, Hawthorne, Alberta"`
 
 ## Instructions
 

@@ -10,15 +10,14 @@ Assess the competitive quality and opportunity level of an area — where is und
 `/factori:market-quality-audit <location> [radius_km]`
 
 ## Examples
-- `/factori:market-quality-audit "Midtown Atlanta"`
-- `/factori:market-quality-audit "SoHo, NYC" 0.5`
-- `/factori:market-quality-audit "Indiranagar, Bangalore" 1.0`
+- `/factori:market-quality-audit "I'm scoping SoHo, NYC for a premium retail concept and want to know whether the market is already saturated or whether there's room for a stronger operator to come in."`
+- `/factori:market-quality-audit "Is Old Town Scottsdale saturated or is there room?"`
+- `/factori:market-quality-audit "Market quality read on Fishtown, Philadelphia"`
 
 ## Instructions
 
 1. Call `get_market_quality` — opportunity level (High/Medium/Low), avg rating, vulnerable POI %, claimed POI %.
 2. Call `get_area_snapshot` — POI density, top brands, branded vs independent, price tiers.
-3. Call `get_demographics_report` — buying-power context.
 
 Synthesize into a Market Quality Report:
 - **Opportunity Level**, saturation read (POI density vs population)
