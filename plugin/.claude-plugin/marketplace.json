@@ -1,0 +1,13 @@
+{
+  "name": "factori-ai",
+  "description": "Factori location and people intelligence plugin",
+  "owner": {
+    "name": "Factori"
+  },
+  "plugins": [
+    {
+      "name": "factori",
+      "source": "./plugin"
+    }
+  ]
+}

@@ -23,17 +23,13 @@ Location and people intelligence inside Claude — site selection, trade area an
 
 ## Installation
 
-Open your terminal and run these two commands:
+Open your terminal and run this single command:
 
 ```bash
-claude plugin marketplace add Factori-AI/factori-mcp-plugin
+curl -fsSL https://raw.githubusercontent.com/Factori-AI/factori-mcp-plugin/main/install.sh | bash
 ```
 
-```bash
-claude plugin install factori@factori-mcp-plugin
-```
-
-That's it. This installs the Factori MCP connector, all 12 analysis commands, and 4 background knowledge skills — no cloning, no manual setup.
+That's it. The script downloads and installs the Factori MCP connector, all 12 analysis commands, and 4 background knowledge skills automatically — no cloning, no git, no manual setup.
 
 ---
 
