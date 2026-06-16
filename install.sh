@@ -2,11 +2,10 @@
 set -e
 
 ZIP_URL="https://github.com/Factori-AI/factori-mcp-plugin/releases/download/v1.0.0/factori-plugin.zip"
-INSTALL_DIR="/tmp/factori-install-$$"
+INSTALL_DIR="$HOME/.claude/factori-ai"
 
 echo "Installing Factori plugin for Claude Code..."
 
-# Create temp directory structure
 mkdir -p "$INSTALL_DIR/plugin"
 mkdir -p "$INSTALL_DIR/.claude-plugin"
 
@@ -39,9 +38,6 @@ claude plugin marketplace remove factori-ai 2>/dev/null || true
 # Add marketplace and install plugin
 claude plugin marketplace add "$INSTALL_DIR"
 claude plugin install "factori@factori-ai"
-
-# Cleanup
-rm -rf "$INSTALL_DIR"
 
 echo ""
 echo "Factori plugin installed successfully!"
