@@ -8,8 +8,12 @@
   "plugins": [
     {
       "name": "factori",
-      "path": "plugin",
-      "description": "Search global POI/places data, run B2B/B2C people lookups, and pull foot-traffic, mobility, trade-area, and store-performance analytics."
+      "description": "Search global POI/places data, run B2B/B2C people lookups, and pull foot-traffic, mobility, trade-area, and store-performance analytics.",
+      "source": {
+        "source": "github",
+        "repo": "Factori-AI/factori-mcp-plugin",
+        "path": "plugin"
+      }
     }
   ]
 }
