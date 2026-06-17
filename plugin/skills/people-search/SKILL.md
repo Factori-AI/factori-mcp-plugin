@@ -1,3 +1,7 @@
+---
+description: Find, count, preview, and unlock B2B and B2C person records — sales leads, marketing audiences, job title lookups, and demographic research.
+---
+
 # Factori People Search
 
 Factori's People dataset covers B2B and B2C person records — employment, demographics, interests, contact details, and lifestyle attributes.

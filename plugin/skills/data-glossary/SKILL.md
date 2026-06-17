@@ -1,3 +1,7 @@
+---
+description: Definitions for Factori metrics and terms — mobility, trade area, POI, people, and credits.
+---
+
 # Factori Data Glossary
 
 Key terms and metrics used across Factori's tools. Use these definitions when explaining data to users.

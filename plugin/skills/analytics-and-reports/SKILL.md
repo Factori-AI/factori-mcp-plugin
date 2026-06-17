@@ -1,3 +1,7 @@
+---
+description: Foot-traffic, mobility, demographic, trade-area, market quality, competitive, cannibalization, and closure-impact analytics for any address or area.
+---
+
 # Factori Analytics & Reports
 
 Factori's analytics tools provide mobility, foot-traffic, demographic, and competitive intelligence for any address or area.

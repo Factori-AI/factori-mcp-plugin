@@ -1,3 +1,7 @@
+---
+description: Find, count, preview, and unlock global POI and business location records — any category, brand, or attribute in any city or region.
+---
+
 # Factori Places (POI) Search
 
 Factori's POI dataset covers global business locations with categories, brands, attributes, ratings, hours, pricing, and contact data.
