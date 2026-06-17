@@ -1,0 +1,46 @@
+---
+description: "Turns a place's visitors into a ready-to-use audience, profiles who they are, maps where they come from, and contrasts them with who lives nearby."
+---
+
+# Audience Build
+
+Turn a location's visitors into an activatable ad audience — visitor persona, trade-area geofence seed, look-alike seed, and channel plan.
+
+## Usage
+`/factori:audience-build <location> [campaign_goal] [radius_km]`
+
+## Examples
+- `/factori:audience-build "Mall of America, Minneapolis"` — ad campaign targeting shoppers; who they are and how to reach them across DOOH and paid social
+- `/factori:audience-build "The Grove, LA"` — visitor profile and reach strategy
+- `/factori:audience-build "King of Prussia Mall, PA"` — full activation brief
+
+## Instructions
+
+1. Call `get_visitor_profile` — the actual audience that visits (age, gender, income, net worth, education, household).
+2. Call `get_trade_area` — origin hex list for geofence seeding and catchment mapping.
+3. Call `get_demographics_report` — neighborhood baseline to compare with visitor profile.
+
+Synthesize into an Activation Brief:
+- **Audience Persona**: income, age, education, household, lifestyle
+- **Visitor vs Resident gap** — who visits vs who lives there
+- **Primary trade area** (hexes ≥3% visit fraction) for geofencing seed
+- **Look-alike targeting** seed for paid social / programmatic
+- **Recommended channels**: DOOH, mobile geofence, paid social
+
+> Note: This command surfaces the audience profile and geofence seed inputs. Actual audience segment creation happens in your ad platform using the hex origins and resolved people filters.
+
+## Visualization
+
+After gathering the data, render an inline visual dashboard if the host exposes a chart/visualization tool (e.g. visualize:show_widget on Claude.ai, or any equivalent renderer):
+- KPI cards for the headline numbers (scores, counts, rates, the verdict/recommendation).
+- Bar/donut charts for distributions (category mix, price tiers, atmosphere, demographics, dayparts).
+- Horizontal bars for top-N lists (top brands, top categories, origin hexes, ranked locations).
+- Line/area charts for any time series (visit trends, momentum).
+
+Pair every chart with a short written interpretation — never return charts alone. If NO chart tool is available, fall back to clean Markdown tables and state that charts aren't available in this host; never silently drop the visuals.
+
+## Response guidance
+
+Read the entire tool output before answering. Parse every field of every result — including large or truncated payloads. If a result was saved to a file because it was too big, extract the needed fields (e.g. with jq); never skip a section (like the category breakdown) just because the data was long.
+
+Answer according to the user's prompt. Lead with what they actually asked (e.g. a leasing decision, operating hours, audience targeting, a Go/No-Go call) and frame every section toward that intent. Surface the parts of the data most relevant to their goal first; don't return a generic, undifferentiated dump.
