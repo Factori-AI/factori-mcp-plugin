@@ -2,17 +2,17 @@
 description: "Analyze visits, visitor demographics, traffic patterns by time of day, and visitor origins to gain a comprehensive understanding of location performance and audience behavior."
 ---
 
-# Trade Area
+# Trade Area Deep Dive
 
 Analyze visits, visitor demographics, traffic patterns by time of day, and visitor origins to gain a comprehensive understanding of location performance and audience behavior.
 
 ## Usage
-`/factori:trade-area <location> [radius_km]`
+`/factori:trade-area-deep-dive <location> [radius_km]`
 
 ## Examples
-- `/factori:trade-area "I want to understand exactly where shoppers at the Galleria mall in Houston are coming from and who they are so I can plan my catchment strategy."`
-- `/factori:trade-area "Where do Pike Place Market, Seattle visitors come from?"`
-- `/factori:trade-area "Catchment analysis for Disney Springs, Orlando"`
+- `/factori:trade-area-deep-dive "I want to understand exactly where shoppers at the Galleria mall in Houston are coming from and who they are so I can plan my catchment strategy."`
+- `/factori:trade-area-deep-dive "Where do Pike Place Market, Seattle visitors come from?"`
+- `/factori:trade-area-deep-dive "Catchment analysis for Disney Springs, Orlando"`
 
 ## Instructions
 

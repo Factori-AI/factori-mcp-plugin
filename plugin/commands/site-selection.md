@@ -1,5 +1,5 @@
 ---
-description: "Complete site selection analysis — Location Score 1–10 with traffic, demographics, trade area, and market opportunity."
+description: "Score a location 1–10 for opening a business — traffic, demographics, trade area, and market opportunity with an Open/Caution/Pass verdict."
 ---
 
 # Site Selection
@@ -19,7 +19,7 @@ Score a location for opening a business — combines area landscape, traffic tre
 Call each tool IN ORDER for the given location:
 
 1. **Area Snapshot** — `get_area_snapshot` — POI mix, top brands, branded vs independent, ratings, parking.
-2. **Visit Trends** — `get_visit_trends` — daily, LAST_30_DAYS — visit volume, trend direction, peak/lowest periods.
+2. **Visit Trends** — `get_visit_trends` — daily, LAST_30_DAYS unless user specifies — visit volume, trend direction, peak/lowest periods.
 3. **Demographics** — `get_demographics_report` — residents' income, age, education, housing.
 4. **Visitor Profile** — `get_visitor_profile` — WHO actually visits (often differs from residents).
 5. **Trade Area** — `get_trade_area` — radius_km=0.3 — origin hex distribution and catchment quality.
@@ -31,3 +31,5 @@ Synthesize into a Site Selection Report:
 - Traffic Assessment, Demographic Fit, Visitor vs Resident gap
 - Trade Area Quality, Market Opportunity
 - **Final Recommendation**: Open / Proceed with Caution / Pass
+
+> Note: No dedicated Site Scoring API exists — the score is derived from synthesizing the above data.

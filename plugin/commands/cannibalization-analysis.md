@@ -1,10 +1,10 @@
 ---
-description: "Assess cannibalization risk when opening a new store near your existing network — gravity model, per-store impact, and Go/No-Go verdict."
+description: "Estimate how much a proposed store would steal from your existing ones — gravity model, per-store impact, and Go/No-Go/Adjust verdict."
 ---
 
 # Cannibalization Analysis
 
-Assess how much a new location would steal visits from your own existing stores, and estimate net new visits vs lost visits using a gravity model.
+Estimate how much a proposed store would steal from your existing ones with a Go/No-Go/Adjust call.
 
 ## Usage
 `/factori:cannibalization-analysis <proposed_address> <existing_addresses> [competitor_addresses]`

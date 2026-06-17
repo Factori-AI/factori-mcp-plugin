@@ -1,10 +1,10 @@
 ---
-description: "Turn a location's visitors into an activatable ad audience — persona, trade-area geofence seed, look-alike seed, and channel plan."
+description: "Transforms raw location footprint data into actionable marketing assets — audience persona, geofence seed, look-alike seed, and cross-channel activation plan."
 ---
 
 # Audience Build
 
-Build a full audience persona and activation brief — who visits, where they come from, and the best channels to reach them.
+Transforms raw location footprint data into actionable marketing assets. It maps visitor behaviors into distinct audience personas, establishes geofences, generates look-alike seed models, and delivers an optimized cross-channel activation plan.
 
 ## Usage
 `/factori:audience-build <location> [campaign_goal] [radius_km]`
