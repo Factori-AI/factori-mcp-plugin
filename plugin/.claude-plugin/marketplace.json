@@ -1,6 +1,9 @@
 {
   "name": "factori-ai",
   "description": "Factori location and people intelligence plugin",
+  "metadata": {
+    "description": "Factori location and people intelligence plugin"
+  },
   "owner": {
     "name": "Factori"
   },

@@ -28,8 +28,7 @@ Write-Host "Downloading plugin..."
 $ZipPath = "$InstallDir\plugin.zip"
 Invoke-WebRequest -Uri $ZipUrl -OutFile $ZipPath
 if (Test-Path "$InstallDir\plugin") { Remove-Item -Recurse -Force "$InstallDir\plugin" }
-New-Item -ItemType Directory -Force -Path "$InstallDir\plugin" | Out-Null
-Expand-Archive -Path $ZipPath -DestinationPath "$InstallDir\plugin" -Force
+Expand-Archive -Path $ZipPath -DestinationPath "$InstallDir" -Force
 Remove-Item $ZipPath
 
 try { claude plugin marketplace remove factori-ai 2>$null } catch {}
