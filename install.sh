@@ -29,6 +29,8 @@ EOF
 # Download and extract plugin
 echo "Downloading plugin..."
 curl -fsSL -o "$INSTALL_DIR/plugin.zip" "$ZIP_URL"
+rm -rf "$INSTALL_DIR/plugin"
+mkdir -p "$INSTALL_DIR/plugin"
 unzip -q -o "$INSTALL_DIR/plugin.zip" -d "$INSTALL_DIR/plugin"
 rm "$INSTALL_DIR/plugin.zip"
 
