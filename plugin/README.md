@@ -4,28 +4,23 @@ Location & people intelligence from Factori — search global POI/places data, r
 
 ## What's included
 
-- **14 commands** — explicit analysis workflows (`/factori:site_selection_report`, `/factori:competitive_benchmark`, etc.)
-- **4 skills** — domain knowledge Claude draws on automatically (POI search, people search, analytics, glossary)
+- **10 skills** — explicit analysis workflows (`/factori:site-selection`, `/factori:competitive-intelligence`, etc.)
 - **1 connector** — MCP server at `https://mcp.factori.ai/mcp` with OAuth 2.0
 
-## Commands
+## Skills
 
-| Command | What it does |
-|---------|-------------|
-| `/factori:site_selection_report` | Location Score 1–10 for a potential new site |
-| `/factori:cannibalization_analysis` | Risk assessment for opening near existing stores |
-| `/factori:closure_impact_analysis` | Customer redistribution when a store closes |
-| `/factori:competitive_benchmark` | Head-to-head location comparison |
-| `/factori:trade_area_deep_dive` | Where visitors come from and who they are |
-| `/factori:audience_activation` | Audience persona + channel activation brief |
-| `/factori:ooh_planner` | OOH/billboard placement evaluation |
-| `/factori:time_of_day_analysis` | Peak hours and late-night activity breakdown |
-| `/factori:market_quality_audit` | Market opportunity and saturation audit |
-| `/factori:area_business_analysis` | 90-day commercial landscape analysis |
-| `/factori:branch_optimization` | Branch network audit and consolidation plan |
-| `/factori:healthcare_desert_finder` | Under-served healthcare zone identification |
-| `/factori:investor_due_diligence` | Property investment due-diligence brief |
-| `/factori:network_planner` | Infrastructure placement planning |
+| Skill | Description |
+|-------|-------------|
+| `area-intelligence` | Profiles everything operating in an area and rates how healthy it is — what's clustered there, the top categories, brands, ratings, price tiers, and traffic momentum, ending in a Vibrant/Stable/Soft verdict. |
+| `audience-build` | Turns a place's visitors into a ready-to-use audience, profiles who they are, maps where they come from, and contrasts them with who lives nearby. |
+| `cannibalization-analysis` | Estimates how much a proposed new location would pull from your existing ones and returns a Go / No-Go / Adjust call. |
+| `closure-impact-analysis` | Models what happens when a location shuts down — where its visitors go, how many you keep, and how many you lose to competitors. |
+| `competitive-intelligence` | Compares two locations head-to-head on traffic, visitor demographics, and audience quality to expose advantages and weaknesses. |
+| `market-quality` | Scores how crowded and contestable a market is — saturation, share of weak players, price gaps — and returns an Enter / Differentiate / Avoid call. |
+| `ooh-planner` | Sizes a billboard/placement spot — daily impressions, peak hours, who passes by, and how well they match your target. |
+| `site-selection` | Scores a location 1–10 for opening a business across traffic, demographics, catchment, and opportunity, with an Open / Caution / Pass verdict. |
+| `area-pulse-analysis` | Breaks down an area's daily rhythm — peak hours by morning/day/night, late-night share, and weekday vs weekend patterns. |
+| `trade-area-deep-dive` | Maps a location's catchment and audience — visit volume, demographics, time-of-day patterns, and where visitors travel from. |
 
 ## Links
 - [Privacy Policy](https://www.factori.ai/privacy-policy/)

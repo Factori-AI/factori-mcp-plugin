@@ -1,12 +1,22 @@
-# Factori Plugin for Claude Code
+# Factori for Claude Code
 
-Location and people intelligence inside Claude — site selection, trade area analysis, foot traffic, competitive benchmarking, audience profiling, and more.
+Real-world location and audience intelligence inside Claude.
+
+Factori enables Claude to analyze places, people, foot traffic, trade areas, market opportunities, competitive landscapes, and audience behavior using natural language.
+
+Use Factori to answer questions such as:
+- Is this a good location to open a business?
+- How healthy is this market?
+- Who visits this area and where do they come from?
+- How does my location compare against competitors?
+- What happens if I open, close, or relocate a location?
+- How many people will see my billboard or advertising placement?
 
 ---
 
 ## Prerequisites
 
-1. **Claude Code** installed on your machine
+1. **Install Claude Code**
 
    **macOS / Linux:**
    ```bash
@@ -17,7 +27,7 @@ Location and people intelligence inside Claude — site selection, trade area an
    irm https://claude.ai/install.ps1 | iex
    ```
 
-2. **A Factori account** — [Sign up at factori.ai](https://factori.ai)
+2. **Create a Factori Account** — [Sign up at factori.ai](https://factori.ai)
 
 ---
 
@@ -35,72 +45,104 @@ curl -fsSL https://raw.githubusercontent.com/Factori-AI/factori-mcp-plugin/main/
 irm https://raw.githubusercontent.com/Factori-AI/factori-mcp-plugin/main/install.ps1 | iex
 ```
 
-That's it. The script downloads and installs the Factori MCP connector, all 12 analysis commands, and 4 background knowledge skills automatically — no cloning, no git, no manual setup.
+The installer automatically:
+- Installs the Factori MCP connector
+- Registers all Factori skills
+- Configures authentication
+- Enables location intelligence inside Claude Code
+
+No manual setup, Git cloning, or configuration required.
 
 ---
 
-## First-Time Sign In
+## First-Time Authentication
 
-The first time you run a `/factori:` command, a browser window will open to authorize Claude Code's access to your Factori account. If you're already logged into Factori, this will just be a quick "Allow access" confirmation. This is a one-time step.
+The first time you invoke a Factori skill, Claude Code will open a browser window and prompt you to authorize access to your Factori account. If you are already signed in to Factori, simply approve the authorization request. This is a one-time setup step.
 
 ---
 
-## Available Commands
+## Available Skills
 
-| Command | What it does |
+| Skill | Description |
 |---|---|
-| `/factori:site-selection` | Score a location 1–10 for opening a business — traffic, demographics, trade area, market opportunity |
-| `/factori:area-snapshot` | Full commercial landscape scan — business mix, top brands, ratings, 90-day traffic momentum |
-| `/factori:area-pulse` | When does an area peak — morning/daytime/night intensity, late-night %, weekday vs weekend |
-| `/factori:trade-area` | Where your visitors come from and who they are — catchment, demographics, traffic patterns |
-| `/factori:market-quality-audit` | Is the market saturated or is there room — opportunity level, vulnerable POI %, price tier gaps |
-| `/factori:audience-build` | Turn a location's visitors into an ad audience — persona, geofence seed, look-alike seed, channel plan |
-| `/factori:competitive-density` | Head-to-head comparison of your location vs a competitor — traffic, demographics, audience quality |
-| `/factori:cannibalization-analysis` | How much would a new store steal from your existing ones — Go/No-Go/Adjust verdict |
-| `/factori:close-impact` | If a store closes, where do its customers go — network absorption vs competitor bleed |
-| `/factori:branch-optimization` | Rank your branch network, flag overlaps and gaps — consolidate/keep/expand recommendations |
-| `/factori:ooh-planner` | Evaluate a billboard or OOH placement — daily impressions, peak hours, audience fit |
-| `/factori:store-network-planner` | Plan infrastructure placement (EV chargers, ATMs, towers) using foot traffic and demand patterns |
+| `/factori:site-selection` | Scores a location 1–10 for opening a business across traffic, demographics, catchment, and opportunity, with an Open / Caution / Pass verdict. |
+| `/factori:area-intelligence` | Profiles everything operating in an area and rates how healthy it is — what's clustered there, the top categories, brands, ratings, price tiers, and traffic momentum, ending in a Vibrant/Stable/Soft verdict. |
+| `/factori:area-pulse-analysis` | Breaks down an area's daily rhythm — peak hours by morning/day/night, late-night share, and weekday vs weekend patterns. |
+| `/factori:trade-area-deep-dive` | Maps a location's catchment and audience — visit volume, demographics, time-of-day patterns, and where visitors travel from. |
+| `/factori:market-quality` | Scores how crowded and contestable a market is — saturation, share of weak players, price gaps — and returns an Enter / Differentiate / Avoid call. |
+| `/factori:audience-build` | Turns a place's visitors into a ready-to-use audience, profiles who they are, maps where they come from, and contrasts them with who lives nearby. |
+| `/factori:competitive-intelligence` | Compares two locations head-to-head on traffic, visitor demographics, and audience quality to expose advantages and weaknesses. |
+| `/factori:cannibalization-analysis` | Estimates how much a proposed new location would pull from your existing ones and returns a Go / No-Go / Adjust call. |
+| `/factori:closure-impact-analysis` | Models what happens when a location shuts down — where its visitors go, how many you keep, and how many you lose to competitors. |
+| `/factori:ooh-planner` | Sizes a billboard/placement spot — daily impressions, peak hours, who passes by, and how well they match your target. |
 
 ---
 
 ## Usage Examples
-
-Type a command followed by your location or question in plain language:
 
 ```
 /factori:site-selection "I want to open a coffee shop in Fulton Market, Chicago — is it a strong spot or already too saturated?"
 ```
 
 ```
-/factori:area-pulse "Time-of-day foot traffic for the Las Vegas Strip"
+/factori:area-intelligence "Give me a commercial landscape profile of Downtown Austin"
 ```
 
 ```
-/factori:competitive-density "Equinox Flatiron vs Planet Fitness Union Square, NYC"
+/factori:area-pulse-analysis "Time-of-day foot traffic for the Las Vegas Strip"
 ```
 
 ```
-/factori:trade-area "Where do Pike Place Market, Seattle visitors come from?"
+/factori:trade-area-deep-dive "Where do Pike Place Market, Seattle visitors come from?"
+```
+
+```
+/factori:market-quality "Is the fitness market in Nashville saturated?"
+```
+
+```
+/factori:audience-build "Build an audience profile for visitors to Venice Beach"
+```
+
+```
+/factori:competitive-intelligence "Equinox Flatiron vs Planet Fitness Union Square, NYC"
 ```
 
 ```
 /factori:cannibalization-analysis "I want to open a new cafe in Santa Monica but I already have shops in Venice and Culver City — how much overlap?"
 ```
 
+```
+/factori:closure-impact-analysis "If I close my downtown location, where will customers go?"
+```
+
+```
+/factori:ooh-planner "Evaluate a billboard placement on Sunset Boulevard"
+```
+
 ---
 
 ## Credit Usage
 
-Some operations (unlocking people records, enriching place data) consume Factori credits. Claude will always show you a count and ask for your confirmation before any credits are spent. Browsing, counting, and previewing are always free.
+Some operations may consume Factori credits, including:
+- Unlocking people records
+- Audience enrichment
+- Place enrichment
+- Premium intelligence operations
 
-Check your balance at [factori.ai](https://factori.ai).
+Before credits are used, Claude will display the estimated credit cost, request confirmation, and execute only after approval. Browsing, discovery, counting, previews, and exploration remain free.
 
 ---
 
-## Links
+## About Factori
 
-- [factori.ai](https://factori.ai)
-- [Privacy Policy](https://www.factori.ai/privacy-policy/)
-- [Terms of Service](https://www.factori.ai/terms-of-use/)
-- Support: support@factori.ai
+Factori provides the real-world intelligence layer for AI agents and enterprise AI systems. By combining place intelligence, mobility patterns, audience insights, and market analytics, Factori enables AI systems to reason about the physical world with the same depth they reason about digital information.
+
+---
+
+## Support
+
+- **Website:** [factori.ai](https://factori.ai)
+- **Support:** support@factori.ai
+- **Privacy Policy:** [factori.ai/privacy-policy](https://www.factori.ai/privacy-policy/)
+- **Terms of Service:** [factori.ai/terms-of-use](https://www.factori.ai/terms-of-use/)

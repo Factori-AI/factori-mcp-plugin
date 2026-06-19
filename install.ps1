@@ -27,6 +27,8 @@ New-Item -ItemType Directory -Force -Path "$InstallDir\.claude-plugin" | Out-Nul
 Write-Host "Downloading plugin..."
 $ZipPath = "$InstallDir\plugin.zip"
 Invoke-WebRequest -Uri $ZipUrl -OutFile $ZipPath
+Copy-Item $ZipPath -Destination "$env:USERPROFILE\Downloads\factori-plugin.zip"
+Write-Host "Plugin zip saved to $env:USERPROFILE\Downloads\factori-plugin.zip"
 if (Test-Path "$InstallDir\plugin") { Remove-Item -Recurse -Force "$InstallDir\plugin" }
 Expand-Archive -Path $ZipPath -DestinationPath "$InstallDir" -Force
 Remove-Item $ZipPath
