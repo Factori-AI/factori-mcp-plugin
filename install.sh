@@ -29,8 +29,11 @@ EOF
 # Download and extract plugin
 echo "Downloading plugin..."
 curl -fsSL -o "$INSTALL_DIR/plugin.zip" "$ZIP_URL"
-cp "$INSTALL_DIR/plugin.zip" "$HOME/Downloads/factori-plugin.zip"
-echo "Plugin zip saved to ~/Downloads/factori-plugin.zip"
+if cp "$INSTALL_DIR/plugin.zip" "$HOME/Downloads/factori-plugin.zip" 2>/dev/null; then
+  echo "Plugin zip saved to ~/Downloads/factori-plugin.zip"
+elif cp "$INSTALL_DIR/plugin.zip" "$HOME/Desktop/factori-plugin.zip" 2>/dev/null; then
+  echo "Plugin zip saved to ~/Desktop/factori-plugin.zip"
+fi
 rm -rf "$INSTALL_DIR/plugin"
 unzip -q -o "$INSTALL_DIR/plugin.zip" -d "$INSTALL_DIR"
 rm "$INSTALL_DIR/plugin.zip"
