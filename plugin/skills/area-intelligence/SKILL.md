@@ -7,9 +7,11 @@ description: "Profiles everything operating in an area and rates how healthy it 
 Delivers a comprehensive diagnostic of a specific area's commercial health. It maps the local brand mix, benchmarks consumer sentiment via ratings, and tracks foot-traffic momentum to issue a definitive economic health verdict: Vibrant, Stable, or Soft.
 
 ## Usage
+
 `/factori:area-intelligence <location> [radius_km]`
 
 ## Examples
+
 - `/factori:area-intelligence "I'm thinking about leasing retail space in Wynwood, Miami and want to understand what kinds of businesses are already clustered there and whether the area is thriving or fading before I commit."`
 - `/factori:area-intelligence "Commercial landscape of Deep Ellum, Dallas"`
 - `/factori:area-intelligence "Business climate read on Capitol Hill, Seattle"`
@@ -17,6 +19,7 @@ Delivers a comprehensive diagnostic of a specific area's commercial health. It m
 ## Instructions
 
 ### Data collection (call all four, in order)
+
 1. `get_area_snapshot` — total POIs, category_distribution, top brands, branded vs independent, price_tier_distribution, performance_metrics, operational_stats, amenities_and_infrastructure, lifestyle_and_atmosphere, crowd_breakdown.
 2. `get_market_quality` — opportunity level (High/Medium/Low) + rating saturation, vulnerable-POI %.
 3. `get_visit_trends` — daily, LAST_90_DAYS unless the user specifies another window — area momentum.
@@ -44,9 +47,12 @@ If the host exposes an inline chart/visualization tool (e.g. visualize:show_widg
 - Price-tier bar and atmosphere bar.
 - 90-day traffic momentum line chart.
 
-If NO chart tool is available, fall back to clean Markdown tables for the same content (do not silently drop the visuals — state that charts aren't available in this host).
+Always attempt to render the widget first — do not fall back without trying. If NO chart tool is available, fall back to clean Markdown tables for the same content (do not silently drop the visuals — state that charts aren't available in this host).
+
+
 
 ## Notes
+
 - Convert relative date windows to absolute in the writeup.
 - Dollar-denominated demographic figures can be inflated/directional — rely on relative/share comparisons.
 - Tailor the closing read to the user's stated intent (e.g. a leasing decision → fit, seasonality, churn/turnover).
@@ -59,141 +65,106 @@ Answer according to the user's prompt. Lead with what they actually asked (e.g. 
 
 ## Report Format
 
-Produce every report in five beats, in this exact order. The beat names are structural guides for the model only — never print them as headings, labels, or dividers in the output.
+Produce every report in **five beats, in this exact order**.
 
-### Formatting rules (mandatory — apply to every report)
+Beats 1 (Verdict) and 2 (Scorecard) are rendered by the `visualize:show_widget` call — **do not repeat them as text below the widget**. Do not write an intro sentence before the Evidence section.
 
-**Structure**
-- Five beats flow as continuous content with no section headings, no horizontal rules between beats, and no numbered sections.
-- Beat labels (Verdict, Scorecard, Evidence, Bottom line) never appear in the output under any circumstances.
+### 1. Verdict
 
-**Verdict presentation**
-- The verdict word (Vibrant / Stable / Soft) appears exactly once — in the first sentence of the report, embedded inline in plain prose. Example: "This is a vibrant, high-quality mixed-use corridor with sustained above-baseline foot traffic."
-- Never render the verdict as a standalone badge, bold callout, emoji, or coloured label (e.g. no "🟢 VIBRANT —", no "**VIBRANT**", no green pill).
+Rendered by the widget: verdict label badge + one sentence of rationale.
 
-**Typography and text**
-- Body text: 10–11pt equivalent (use the host's default body size).
-- Evidence labels: bold inline, e.g. **Category Breakdown**.
-- KPI values in the scorecard: 18–24pt equivalent (large, prominent).
-- KPI labels: 9–10pt, uppercase, muted colour.
-- KPI sub-labels: 9pt, secondary colour.
-- No all-caps prose anywhere except KPI labels.
+### 2. Scorecard
 
-**Spacing**
-- One blank line between the verdict sentence and the scorecard block.
-- One blank line between the scorecard block and the first evidence paragraph.
-- One blank line between each evidence paragraph.
-- No blank line between the last evidence paragraph and the bottom line.
+Rendered by the widget: 4–6 KPI cards + charts.
 
-**Dashboard / inline visual**
-- Render the scorecard as an interactive widget (KPI cards + chart).
-- KPI card grid: 5–6 columns, equal width, dark card surface (#1E1E1E), colour-coded top strip (mint #00FFC4 for primary, green #50B432 for positive, amber #EF9F27 for caution, grey for neutral).
-- Bar charts: mint (#00FFC4) fill, dark track (#2E2E2E), labels in #B3B3B3.
-- Traffic sparkline: green (#50B432) above baseline, red (#E34948) below.
-- Pulse cards: daytime card highlighted with mint border and tinted bg.
-- Font in widget: system sans-serif, matching body weight.
+### 3. Evidence
 
-**Omissions (never include)**
-- No "Data window: ..." footnote at the end of any report.
-- No verdict badge, emoji, or coloured label anywhere.
-- No section headings or dividers between beats.
-- No caveats, disclaimers, or notes appended to the report.
-- No "Download as PDF · PowerPoint · Markdown" prompt in the report body.
+Output with exactly this heading: `### Evidence`
+One block per tool called, in the fixed order listed below. Format: **Bold label** → number(s) → one-line "so what." Every block must appear even when data is missing — use the fallback phrases below, never silently omit a block.
+
+### 4. Bottom line
+
+Output with exactly this heading: `### Bottom line`
+Verdict restated + single most important next action. If 3+ evidence blocks used fallback language, flag as low-confidence and recommend re-running.
 
 ---
 
-### Beat 1 — Verdict
+### Fallback language (mandatory)
 
-First sentence of the report only. Format: "This is a [verdict adjective], [one clause of rationale framed to the user's stated intent]."
-
-One sentence. No badge. No heading. No emoji. Verdict word lowercase and embedded, not isolated.
-
----
-
-### Beat 2 — Scorecard
-
-4–6 KPI cards immediately after the verdict sentence (no label above). Render as an interactive widget. Each card shows:
-- Label: uppercase, 9–10pt, muted
-- Value: 18–24pt, colour-coded
-- Sub-label: 9pt, secondary colour
-
-Standard KPIs for this skill (in order): Total POIs · Avg rating · 5-star share · Opportunity level · Vulnerable POI % · 90-day traffic change
+| Failure mode           | Phrase to insert                                                                                                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| No data returned       | "[Label]: No data returned for this location. [Conclusion] cannot be drawn — treat other signals as directional only."                              |
+| Low sample             | "[Label]: Sample size is low (N=[n]). Figures are indicative, not statistically reliable."                                                          |
+| Tool error / timeout   | "[Label]: Data unavailable — [tool name] did not return results. This block is excluded from scoring."                                              |
+| Abnormal distribution  | "[Label]: Distribution appears abnormal ([bucket] = 100%). Likely a zero-population or non-residential area — [conclusion] is not meaningful here." |
+| Dollar figures present | Append inline: _Note: Income and net-worth figures are directional — use relative comparisons, not absolute values._                                |
 
 ---
 
-### Beat 3 — Evidence
+### Cross-cutting rules
 
-One paragraph per tool called, in this fixed order:
-1. Category Breakdown
-2. Top Brands + Branded/Independent Split
-3. Quality Bar
-4. Operational & Atmosphere
-5. Traffic Momentum
-
-Format per paragraph: **Bold label** → key number(s) → interpretation → one-line "so what" at the end.
-
-Every block must appear even when data is missing. Use these exact fallback phrases — never silently omit a block:
-- No data returned: "[Label]: No data returned for this location — [conclusion] cannot be drawn. Treat other signals as directional only."
-- Low sample: "[Label]: Sample size is low (N=[n]). Figures are indicative, not statistically reliable."
-- Tool error: "[Label]: Data unavailable — [tool name] did not return results. This block is excluded from scoring."
+- **Verdict first.** Decision is the headline, not the conclusion.
+- **Every claim cites a number.**
+- **Absolute dates.** Convert relative windows (LAST_30_DAYS etc.) to absolute dates in the writeup.
+- **Dollars are directional.** Prefer relative/share comparisons over absolute values.
+- **Tailor to intent.** Surface data most relevant to the user's goal first.
+- **Visuals never stand alone.** Every chart gets a one-line interpretation. If no chart tool, fall back to Markdown tables.
+- **3+ fallback blocks = low-confidence verdict.** Flag explicitly and recommend re-running.
 
 ---
 
-### Beat 4 — Bottom line
+### Download options
 
-Final paragraph (no heading). Restate the verdict in a sentence, then give the single most important next action.
+After every report, offer: **Download as: PDF · PowerPoint** — just ask and I'll generate the file.
 
-If 3 or more evidence blocks used fallback language, add inline: "Confidence is low — recommend re-running once data is available."
+File naming: `factori-[skill-name]-[sanitised-location]-[YYYY-MM-DD]` (append `-2`, `-3` if filename exists).
 
-No data window footnote. No download prompt. End here.
-
----
-
-### Download
-
-After the bottom line, always end with this exact line:
-
-> **Download this report as:** PDF · PowerPoint — just ask and I'll generate the file.
+- **PDF** — generate a styled PDF using the branding rules below. Save to `/mnt/user-data/outputs/[filename].pdf`.
+- **PowerPoint** — generate a PPTX using the branding rules below. Slides: Cover → Scorecard → one slide per evidence block → Bottom line. Save to `/mnt/user-data/outputs/[filename].pptx`.
 
 ---
 
-### Branding in downloaded outputs (PDF / PPTX)
+### Branding for downloaded outputs (PDF / PPTX)
 
 Apply these rules exactly for every PDF and PowerPoint output.
 
 **Colour palette (mandatory — use these exact hex values):**
 
-| Token | Hex | Use |
-|---|---|---|
-| Background | #121212 | Page/slide background |
-| Card surface | #1E1E1E / #252525 / #2E2E2E | Elevated surfaces |
-| Accent | #00FFC4 | Primary accent — bars, underlines, highlights |
-| Border | #333333 / #3A3A3A | Card borders, grid lines |
-| Body text | #FFFFFF | Primary text |
-| Secondary text | #B3B3B3 | Body / secondary text |
-| Muted text | #6B6B6B | Captions, metadata |
-| Positive | #50B432 | Positive KPIs |
-| Caution | #EF9F27 | Warning KPIs |
-| Negative | #E34948 | Negative KPIs |
+| Token          | Hex                         | Use                                           |
+| -------------- | --------------------------- | --------------------------------------------- |
+| Background     | #121212                     | Page/slide background                         |
+| Card surface   | #1E1E1E / #252525 / #2E2E2E | Elevated surfaces                             |
+| Accent         | #00FFC4                     | Primary accent — bars, underlines, highlights |
+| Border         | #333333 / #3A3A3A           | Card borders, grid lines                      |
+| Body text      | #FFFFFF                     | Primary text                                  |
+| Secondary text | #B3B3B3                     | Body / secondary text                         |
+| Muted text     | #6B6B6B                     | Captions, metadata                            |
+| Positive       | #50B432                     | Positive KPIs                                 |
+| Caution        | #EF9F27                     | Warning KPIs                                  |
+| Negative       | #E34948                     | Negative KPIs                                 |
 
 **PDF footer (every page):**
+
 - Band height: 8mm, background #1E1E1E
 - Mint accent line: 1px, at very top of footer band
 - Metadata centred: "Data as of [date] · [Location name]", 6.5pt, #6B6B6B
 - No page number drawn in the file — viewer renders natively
 
 **PDF report title:**
+
 - "Area Intelligence Report": 28pt bold white, left-aligned, in content flow
 - Subtitle "[Location] · [radius] · [date]": 10pt #B3B3B3, below title
 - No title in the header band — header is a 2pt mint line at page top only
 
 **PPTX footer (every slide):**
+
 - Band height: 0.26 in, background #1E1E1E
 - Mint accent line: 0.015 in, at very top of footer band
 - Metadata centred: 7pt, #6B6B6B
 - No page number
 
 **PPTX slide heading style:**
+
 - Font: Calibri (or Space Grotesk if available)
 - Size: 22pt bold #FFFFFF, left-aligned
 - Mint underline accent bar: 0.6 in wide × 0.025 in tall, placed just below the title text, above the subtitle
@@ -201,12 +172,57 @@ Apply these rules exactly for every PDF and PowerPoint output.
 - Content starts below subtitle with adequate clearance (~0.88 in from slide top)
 
 **PPTX layout integrity — check before every export:**
+
 - All text boxes must have sufficient height — never let labels, values, or body text clip at the bottom edge of their container
 - Slide titles must be fully visible and must not overlap the mint underline bar or any content below it
 - The mint underline bar sits strictly below the title text with no overlap
 - All KPI card labels, values, and sub-labels must be fully contained within their card bounds — increase card height if content overflows
+- **KPI cards must never overlap each other.** Calculate the total width of all cards before rendering — if they don't fit in one row, use two rows.
+- **Text-based KPI values** (e.g. "10am–10pm", "Commuter") must use a smaller font (14–16pt max) and wrap within the card — never overflow into adjacent cards.
+- **Numeric KPI values** may use 18–24pt but must still be clipped to their card boundary.
+- Minimum horizontal gap between cards: 8pt. Never reduce this gap to fit more cards — use two rows instead.
 - Tables must fit entirely within the slide content area — no row, header, or column must bleed past the slide edge
 - Every bar chart label must be fully readable — left-side labels must not be clipped, right value labels must not overflow the slide boundary
 - Maintain a minimum 0.1 in clearance between any content element and the slide edge on all four sides
 - Content must not extend into the bottom 0.3 in of the slide
 - When in doubt, scale content down or reduce font size by 1pt rather than allow any element to overflow or clip
+
+**PDF/PPTX content structure — follow these beats for every downloaded output:**
+
+**Beat 1 — Verdict**
+First sentence only. State the Business Climate verdict (Vibrant / Stable / Soft) and the key metric that justifies it in one sentence. No badge. No heading. No emoji.
+
+**Beat 2 — Scorecard**
+4–6 KPI cards immediately after the verdict sentence. Each card:
+
+- Label: uppercase, 9–10pt, muted (#6B6B6B)
+- Value: 18–24pt, colour-coded (positive → #50B432, caution → #EF9F27, negative → #E34948, primary → #00FFC4)
+- Sub-label: 9pt, secondary colour (#B3B3B3)
+
+Standard KPIs for this skill (in order): Total POIs · Avg rating · Opportunity level · Vulnerable POI % · Tourist/crowd draw
+
+KPI card grid: 5–6 columns, equal width, dark card surface (#1E1E1E), colour-coded top strip (mint #00FFC4 for primary, green #50B432 for positive, amber #EF9F27 for caution, grey for neutral).
+Bar charts: mint (#00FFC4) fill, dark track (#2E2E2E), labels in #B3B3B3.
+
+**Beat 3 — Evidence**
+One paragraph per tool called, in this fixed order:
+
+1. Category Breakdown
+2. Top 10 Brands + branded/independent split
+3. Quality Bar (ratings)
+4. Operational & Atmosphere Profile
+5. Traffic Momentum
+
+Format per paragraph: **Bold label** → key number(s) → interpretation → one-line "so what" at the end.
+
+**Beat 4 — Bottom line**
+Final paragraph (no heading). Restate the Business Climate verdict and single most important finding, then give one next action. If 3+ evidence blocks used fallback language, add: "Confidence is low — recommend re-running once data is available."
+
+---
+
+### This skill's verdict and evidence blocks
+
+|                                |                                                                                                                                |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Verdict label**              | Vibrant / Stable / Soft                                                                                                        |
+| **Evidence blocks (in order)** | Category Breakdown · Top 10 Brands + branded/independent · Quality Bar (ratings) · Operational & Atmosphere · Traffic Momentum |
