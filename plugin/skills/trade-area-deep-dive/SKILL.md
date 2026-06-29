@@ -132,6 +132,17 @@ Apply these rules exactly for every PDF and PowerPoint output.
 - Subtitle "[Location] · [radius] · [date]": 10pt #B3B3B3, below title
 - No title in the header band — header is a 2pt mint line at page top only
 
+**PDF page setup (mandatory — apply to every page, every section):**
+- Fill the ENTIRE page background with #121212 — no white or light areas anywhere
+- All body/paragraph text: #FFFFFF on #121212
+- All tables: header row background #252525, alternating body rows #1E1E1E / #2E2E2E, grid borders #333333
+- Table header text: #FFFFFF bold; table body text: #B3B3B3
+- Evidence section headings: mint #00FFC4
+- Sub-headings and labels: #FFFFFF
+- Secondary/supporting text: #B3B3B3
+- Do not leave any content area, text block, or table with a white or light background
+- **No large blank gaps** — content must flow continuously across the entire PDF. Never leave large blank areas at the bottom of any page. Do not insert forced page breaks between sections — let content flow naturally and start a new page only when the current page is full. Maximum gap between any two content blocks: 12pt.
+
 **PPTX footer (every slide):**
 - Band height: 0.26 in, background #1E1E1E
 - Mint accent line: 0.015 in, at very top of footer band
