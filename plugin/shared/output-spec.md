@@ -13,15 +13,18 @@ Produce every report in five beats, in this exact order. The beat names are stru
 ### Formatting rules (mandatory — apply to every report)
 
 **Structure**
+
 - Five beats flow as continuous content with no section headings, no horizontal rules between beats, and no numbered sections.
 - Beat labels (Verdict, Scorecard, Evidence, Bottom line) never appear in the output under any circumstances.
 
 **Verdict presentation**
+
 - The verdict word (Vibrant / Stable / Soft / Open / Enter / Go etc.) appears exactly once — in the first sentence of the report, embedded inline in plain prose.
   Example: "This is a vibrant, high-quality corridor with sustained above-baseline traffic."
 - Never render the verdict as a standalone badge, bold callout, emoji, or coloured label (e.g. no "🟢 VIBRANT —", no "**VIBRANT**", no green pill).
 
 **Typography and text**
+
 - Body text: 10–11pt equivalent (use the host's default body size).
 - Evidence labels: bold inline, e.g. **Category Breakdown**.
 - KPI values in the scorecard: 18–24pt equivalent (large, prominent).
@@ -30,24 +33,28 @@ Produce every report in five beats, in this exact order. The beat names are stru
 - No all-caps prose anywhere except KPI labels.
 
 **Spacing**
+
 - One blank line between the verdict sentence and the scorecard block.
 - One blank line between the scorecard block and the first evidence paragraph.
 - One blank line between each evidence paragraph.
 - No blank line between the last evidence paragraph and the bottom line.
 
 **Dashboard / inline visual**
-- Render the scorecard as an interactive widget (KPI cards + chart).
-- KPI card grid: 5–6 columns, equal width, dark card surface (#1E1E1E), colour-coded top strip (mint #00FFC4 for primary, green #50B432 for positive, amber #EF9F27 for caution, grey for neutral).
-- Bar charts: mint (#00FFC4) fill, dark track (#2E2E2E), labels in #B3B3B3.
-- Traffic sparkline: green (#50B432) above baseline, red (#E34948) below baseline.
-- Pulse cards: daytime card highlighted with mint border and tinted bg.
+
+- If the host exposes a chart/visualization tool (e.g. `visualize:show_widget` on Claude.ai), call it to render the scorecard widget. Pass the hex colours below explicitly — do not let the renderer choose its own colours.
+- If no visualization tool is available (e.g. Claude Code / terminal), fall back to clean Markdown tables. State once: "Charts are not available in this environment." Never silently skip the data.
+- KPI card grid: 5–6 columns, equal width, dark card surface `#1E1E1E`, colour-coded top strip: primary → `#00FFC4`, positive → `#50B432`, caution → `#EF9F27`, neutral → `#6B6B6B`.
+- Bar charts: fill `#00FFC4`, track `#2E2E2E`, bar labels `#B3B3B3`.
+- Traffic sparkline: `#50B432` above baseline, `#E34948` below baseline.
+- Pulse cards: daytime card highlighted with `#00FFC4` border and `#1E1E1E` tinted bg.
+- Slide/widget background: `#121212`. All text on dark bg: primary `#FFFFFF`, secondary `#B3B3B3`, muted `#6B6B6B`.
 - Font in widget: system sans-serif, matching body weight.
 
 **Omissions (never include)**
+
 - No "Data window: ..." footnote at the end of any report.
 - No verdict badge, emoji, or coloured label anywhere.
 - No section headings or dividers between beats.
-- No "Download as PDF · PowerPoint · Markdown" prompt unless the user explicitly asks for a download.
 
 ---
 
@@ -63,6 +70,7 @@ One sentence. No badge. No heading. No emoji. Verdict word lowercase and embedde
 ### Beat 2 — Scorecard
 
 4–6 KPI cards immediately after the verdict sentence (no label above). Render as an interactive widget. Each card shows:
+
 - Label: uppercase, 9–10pt, muted
 - Value: 18–24pt, colour-coded
 - Sub-label: 9pt, secondary colour
@@ -78,6 +86,7 @@ One paragraph per tool called, in the fixed order listed in each SKILL.md.
 Format per paragraph: **Bold label** → key number(s) → interpretation → one-line "so what" at the end.
 
 Every block must appear even when data is missing. Use these exact fallback phrases — never silently omit a block:
+
 - No data returned: "[Label]: No data returned for this location — [conclusion] cannot be drawn. Treat other signals as directional only."
 - Low sample: "[Label]: Sample size is low (N=[n]). Figures are indicative, not statistically reliable."
 - Tool error: "[Label]: Data unavailable — [tool name] did not return results. This block is excluded from scoring."
@@ -96,13 +105,12 @@ No data window footnote. No download prompt. End here.
 
 ### Fallback language (mandatory)
 
-| Failure mode | Phrase to insert |
-|---|---|
-| No data returned | "[Label]: No data returned for this location — [conclusion] cannot be drawn. Treat other signals as directional only." |
-| Low sample | "[Label]: Sample size is low (N=[n]). Figures are indicative, not statistically reliable." |
-| Tool error / timeout | "[Label]: Data unavailable — [tool name] did not return results. This block is excluded from scoring." |
+| Failure mode          | Phrase to insert                                                                                                                                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| No data returned      | "[Label]: No data returned for this location — [conclusion] cannot be drawn. Treat other signals as directional only."                              |
+| Low sample            | "[Label]: Sample size is low (N=[n]). Figures are indicative, not statistically reliable."                                                          |
+| Tool error / timeout  | "[Label]: Data unavailable — [tool name] did not return results. This block is excluded from scoring."                                              |
 | Abnormal distribution | "[Label]: Distribution appears abnormal ([bucket] = 100%). Likely a zero-population or non-residential area — [conclusion] is not meaningful here." |
-| Dollar figures present | Append inline: *Note: Income and net-worth figures are directional — use relative comparisons, not absolute values.* |
 
 ---
 
@@ -111,7 +119,6 @@ No data window footnote. No download prompt. End here.
 - **Verdict first.** Decision is the headline, not the conclusion.
 - **Every claim cites a number.**
 - **Absolute dates.** Convert relative windows (LAST_30_DAYS etc.) to absolute dates in the writeup.
-- **Dollars are directional.** Prefer relative/share comparisons over absolute values.
 - **Tailor to intent.** Surface data most relevant to the user's goal first.
 - **Visuals never stand alone.** Every chart gets a one-line interpretation. If no chart tool, fall back to Markdown tables.
 - **3+ fallback blocks = low-confidence verdict.** Flag explicitly and recommend re-running.
@@ -120,7 +127,11 @@ No data window footnote. No download prompt. End here.
 
 ### Download options
 
-Only offer downloads when the user explicitly asks for one.
+After every report, always end with this exact line:
+
+> **Download this report as:** PDF · PowerPoint — just ask and I'll generate the file.
+
+When the user asks for a download, generate the file using these rules:
 
 File naming: `factori-[skill-name]-[sanitised-location]-[YYYY-MM-DD]` (append `-2`, `-3` if filename exists).
 
@@ -134,18 +145,18 @@ File naming: `factori-[skill-name]-[sanitised-location]-[YYYY-MM-DD]` (append `-
 
 ### Colour palette
 
-| Token | Hex | Use |
-|---|---|---|
-| Background | #121212 | Page/slide background |
-| Card surface | #1E1E1E / #252525 / #2E2E2E | Elevated surfaces |
-| Accent | #00FFC4 | Primary accent — bars, underlines, highlights |
-| Border | #333333 / #3A3A3A | Card borders, grid lines |
-| Body text | #FFFFFF | Primary text |
-| Secondary text | #B3B3B3 | Body / secondary text |
-| Muted text | #6B6B6B | Captions, metadata |
-| Positive | #50B432 | Positive KPIs |
-| Caution | #EF9F27 | Warning KPIs, fallback blocks |
-| Negative | #E34948 | Negative KPIs |
+| Token          | Hex                         | Use                                           |
+| -------------- | --------------------------- | --------------------------------------------- |
+| Background     | #121212                     | Page/slide background                         |
+| Card surface   | #1E1E1E / #252525 / #2E2E2E | Elevated surfaces                             |
+| Accent         | #00FFC4                     | Primary accent — bars, underlines, highlights |
+| Border         | #333333 / #3A3A3A           | Card borders, grid lines                      |
+| Body text      | #FFFFFF                     | Primary text                                  |
+| Secondary text | #B3B3B3                     | Body / secondary text                         |
+| Muted text     | #6B6B6B                     | Captions, metadata                            |
+| Positive       | #50B432                     | Positive KPIs                                 |
+| Caution        | #EF9F27                     | Warning KPIs, fallback blocks                 |
+| Negative       | #E34948                     | Negative KPIs                                 |
 
 ### PDF footer layout (every page)
 
@@ -223,33 +234,61 @@ File naming: `factori-[skill-name]-[sanitised-location]-[YYYY-MM-DD]` (append `-
 function kpiCard(slide, x, y, w, h, label, value, sub, accentColour) {
   // Dark card
   slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x, y, w, h,
+    x,
+    y,
+    w,
+    h,
     fill: { color: "1E1E1E" },
     line: { color: "333333", width: 0.5 },
     rectRadius: 0.06,
   });
   // Colour top strip
   slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x, y, w, h: 0.055,
-    fill: { color: accentColour }, line: { color: accentColour }, rectRadius: 0.04,
+    x,
+    y,
+    w,
+    h: 0.055,
+    fill: { color: accentColour },
+    line: { color: accentColour },
+    rectRadius: 0.04,
   });
   // Label
   slide.addText(label.toUpperCase(), {
-    x, y: y + 0.07, w, h: 0.2,
-    fontSize: 6.5, fontFace: FONT, bold: true,
-    color: "6B6B6B", align: "center", margin: 0,
+    x,
+    y: y + 0.07,
+    w,
+    h: 0.2,
+    fontSize: 6.5,
+    fontFace: FONT,
+    bold: true,
+    color: "6B6B6B",
+    align: "center",
+    margin: 0,
   });
   // Value
   slide.addText(value, {
-    x, y: y + 0.25, w, h: 0.48,
-    fontSize: 26, fontFace: FONT, bold: true,
-    color: accentColour, align: "center", margin: 0,
+    x,
+    y: y + 0.25,
+    w,
+    h: 0.48,
+    fontSize: 26,
+    fontFace: FONT,
+    bold: true,
+    color: accentColour,
+    align: "center",
+    margin: 0,
   });
   // Sub-label
   slide.addText(sub, {
-    x, y: y + h - 0.22, w, h: 0.2,
-    fontSize: 7, fontFace: FONT,
-    color: "6B6B6B", align: "center", margin: 0,
+    x,
+    y: y + h - 0.22,
+    w,
+    h: 0.2,
+    fontSize: 7,
+    fontFace: FONT,
+    color: "6B6B6B",
+    align: "center",
+    margin: 0,
   });
 }
 ```
@@ -259,37 +298,60 @@ function kpiCard(slide, x, y, w, h, label, value, sub, accentColour) {
 ```js
 function hbar(slide, x, y, w, h, data, colour) {
   const rowH = h / data.length;
-  const LW = 1.65, gap = 0.08, valW = 0.42;
+  const LW = 1.65,
+    gap = 0.08,
+    valW = 0.42;
   const barW = w - LW - gap - valW;
-  const maxVal = Math.max(...data.map(d => d[1]));
+  const maxVal = Math.max(...data.map((d) => d[1]));
   data.forEach(([label, val], i) => {
     const ry = y + i * rowH + rowH * 0.18;
     const bh = rowH * 0.58;
     // Label
     slide.addText(label, {
-      x, y: ry, w: LW, h: bh,
-      fontSize: 9, fontFace: FONT, color: "B3B3B3",
-      align: "right", valign: "middle", margin: 0,
+      x,
+      y: ry,
+      w: LW,
+      h: bh,
+      fontSize: 9,
+      fontFace: FONT,
+      color: "B3B3B3",
+      align: "right",
+      valign: "middle",
+      margin: 0,
     });
     // Track
     slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x: x + LW + gap, y: ry + bh * 0.28, w: barW, h: bh * 0.44,
-      fill: { color: "252525" }, line: { color: "333333", width: 0.3 },
+      x: x + LW + gap,
+      y: ry + bh * 0.28,
+      w: barW,
+      h: bh * 0.44,
+      fill: { color: "252525" },
+      line: { color: "333333", width: 0.3 },
       rectRadius: 0.02,
     });
     // Fill
     const fw = Math.max(0.05, (val / maxVal) * barW);
     slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x: x + LW + gap, y: ry + bh * 0.28, w: fw, h: bh * 0.44,
+      x: x + LW + gap,
+      y: ry + bh * 0.28,
+      w: fw,
+      h: bh * 0.44,
       fill: { color: colour || "00FFC4" },
       line: { color: colour || "00FFC4" },
       rectRadius: 0.02,
     });
     // Value label
     slide.addText(`${val.toFixed(1)}%`, {
-      x: x + LW + gap + fw + 0.04, y: ry, w: valW, h: bh,
-      fontSize: 9.5, fontFace: FONT, bold: true,
-      color: "FFFFFF", valign: "middle", margin: 0,
+      x: x + LW + gap + fw + 0.04,
+      y: ry,
+      w: valW,
+      h: bh,
+      fontSize: 9.5,
+      fontFace: FONT,
+      bold: true,
+      color: "FFFFFF",
+      valign: "middle",
+      margin: 0,
     });
   });
 }
@@ -300,10 +362,15 @@ function hbar(slide, x, y, w, h, data, colour) {
 ```js
 function darkCard(slide, x, y, w, h, mintBorder) {
   slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x, y, w, h,
+    x,
+    y,
+    w,
+    h,
     fill: { color: "1E1E1E" },
-    line: { color: mintBorder ? "00FFC4" : "333333",
-            width: mintBorder ? 1 : 0.5 },
+    line: {
+      color: mintBorder ? "00FFC4" : "333333",
+      width: mintBorder ? 1 : 0.5,
+    },
     rectRadius: 0.06,
   });
 }
@@ -313,39 +380,76 @@ function darkCard(slide, x, y, w, h, mintBorder) {
 
 ```js
 function darkTable(slide, x, y, w, rows, col1Label, col2Label) {
-  const rh = 0.27, hw = w * 0.68, sw = w * 0.32;
+  const rh = 0.27,
+    hw = w * 0.68,
+    sw = w * 0.32;
   // Header
   slide.addShape(pres.shapes.RECTANGLE, {
-    x, y, w, h: rh,
-    fill: { color: "00FFC4" }, line: { color: "00FFC4" },
+    x,
+    y,
+    w,
+    h: rh,
+    fill: { color: "00FFC4" },
+    line: { color: "00FFC4" },
   });
   slide.addText(col1Label, {
-    x: x + 0.07, y, w: hw, h: rh,
-    fontSize: 8, fontFace: FONT, bold: true, color: "121212",
-    valign: "middle", margin: 0,
+    x: x + 0.07,
+    y,
+    w: hw,
+    h: rh,
+    fontSize: 8,
+    fontFace: FONT,
+    bold: true,
+    color: "121212",
+    valign: "middle",
+    margin: 0,
   });
   slide.addText(col2Label, {
-    x: x + hw, y, w: sw - 0.07, h: rh,
-    fontSize: 8, fontFace: FONT, bold: true, color: "121212",
-    align: "right", valign: "middle", margin: 0,
+    x: x + hw,
+    y,
+    w: sw - 0.07,
+    h: rh,
+    fontSize: 8,
+    fontFace: FONT,
+    bold: true,
+    color: "121212",
+    align: "right",
+    valign: "middle",
+    margin: 0,
   });
   // Data rows
   rows.forEach(([name, val], i) => {
     const ry = y + rh + i * rh;
     slide.addShape(pres.shapes.RECTANGLE, {
-      x, y: ry, w, h: rh,
+      x,
+      y: ry,
+      w,
+      h: rh,
       fill: { color: i % 2 === 0 ? "1E1E1E" : "252525" },
       line: { color: "333333", width: 0.3 },
     });
     slide.addText(name, {
-      x: x + 0.07, y: ry, w: hw, h: rh,
-      fontSize: 8, fontFace: FONT, color: "B3B3B3",
-      valign: "middle", margin: 0,
+      x: x + 0.07,
+      y: ry,
+      w: hw,
+      h: rh,
+      fontSize: 8,
+      fontFace: FONT,
+      color: "B3B3B3",
+      valign: "middle",
+      margin: 0,
     });
     slide.addText(val, {
-      x: x + hw, y: ry, w: sw - 0.07, h: rh,
-      fontSize: 8, fontFace: FONT, color: "FFFFFF",
-      align: "right", valign: "middle", margin: 0,
+      x: x + hw,
+      y: ry,
+      w: sw - 0.07,
+      h: rh,
+      fontSize: 8,
+      fontFace: FONT,
+      color: "FFFFFF",
+      align: "right",
+      valign: "middle",
+      margin: 0,
     });
   });
 }
