@@ -125,7 +125,7 @@ Apply these rules exactly for every PDF and PowerPoint output.
 - Band height: 8mm, background #1E1E1E
 - Mint accent line: 1px, at very top of footer band
 - Metadata centred: "Data as of [date] · [Location name]", 6.5pt, #6B6B6B
-- No page number drawn in the file — viewer renders natively
+- No page number drawn in the file — viewer renders natively. Do NOT programmatically add any page number text or footer annotation — omit entirely.
 
 **PDF report title:**
 - "Trade Area Deep Dive Report": 28pt bold white, left-aligned, in content flow
@@ -133,7 +133,9 @@ Apply these rules exactly for every PDF and PowerPoint output.
 - No title in the header band — header is a 2pt mint line at page top only
 
 **PDF page setup (mandatory — apply to every page, every section):**
-- Fill the ENTIRE page background with #121212 — no white or light areas anywhere
+- Set the document base/default page colour to #121212 before placing any content — this is the root background for every page.
+- Fill the ENTIRE page background with #121212 — no white or light areas anywhere.
+- Every text box, paragraph area, and content container must have an explicit background fill of #121212 — never transparent or white. Do not rely on the page background to show through.
 - All body/paragraph text: #FFFFFF on #121212
 - All tables: header row background #252525, alternating body rows #1E1E1E / #2E2E2E, grid borders #333333
 - Table header text: #FFFFFF bold; table body text: #B3B3B3
@@ -142,6 +144,9 @@ Apply these rules exactly for every PDF and PowerPoint output.
 - Secondary/supporting text: #B3B3B3
 - Do not leave any content area, text block, or table with a white or light background
 - **No large blank gaps** — content must flow continuously across the entire PDF. Never leave large blank areas at the bottom of any page. Do not insert forced page breaks between sections — let content flow naturally and start a new page only when the current page is full. Maximum gap between any two content blocks: 12pt.
+- **PDF KPI card sizing (mandatory):** Minimum card width 1.2 in (86pt). Content area is ~6.3 in wide. Never fit more than 5 cards in one row — if 6 cards are needed use two rows of 3. If cards at minimum width do not all fit in one row, use two rows instead of shrinking. Card height minimum 0.9 in. Never scale down card font sizes to fit more cards per row. Minimum gap between cards: 8pt horizontal AND 8pt vertical between rows. Each card must have minimum 8pt internal padding on all four sides — text must never touch the card edge.
+- **Failed charts/sections:** If a chart cannot be rendered, skip both the chart AND its section heading — never leave blank space or an orphaned heading with no content. Continue immediately with the next renderable content block.
+- **Chart label clearance:** Chart titles must sit above the chart plotting area with minimum 16pt clearance — no bar, line, or data element may overlap any title, label, or text annotation. Left-side axis labels must have minimum 12pt right-margin before the first bar starts. Value labels at bar ends must not overflow the chart boundary.
 
 **PPTX footer (every slide):**
 - Band height: 0.26 in, background #1E1E1E
